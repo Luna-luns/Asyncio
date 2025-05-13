@@ -2,17 +2,25 @@
 #  Запустите их параллельно и соберите результаты в список.
 import asyncio
 
-STRINGS: list = ['Weather', 'Rain', 'Sun', 'Food']
-
 
 async def print_strings(s):
-    await asyncio.sleep(10)
+    await asyncio.sleep(2)
     return s
 
+
 async def main() -> None:
-    tasks = [asyncio.create_task(print_strings(STRINGS[i])) for i in range(0, 4)]
-    for completed_task in asyncio.as_completed(tasks):
-        result = await completed_task
-        print(result)
+    task_1 = print_strings('Weather')
+    task_2 = print_strings('Rain')
+    task_3 = print_strings('Sun')
+    task_4 = print_strings('Food')
+
+    print('Tasks has been created.')
+
+    result_1 = await task_1
+    result_2 = await task_2
+    result_3 = await task_3
+    result_4 = await task_4
+
+    print(result_1, result_2, result_3, result_4, sep='\n')
 
 asyncio.run(main())
