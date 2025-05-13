@@ -7,5 +7,12 @@ async def wait_random():
     print(f"Задача завершилась через {delay} секунд")
 
 
+async def main():
+    await asyncio.gather(wait_random(), wait_random(), wait_random())
+
+
+if __name__ == '__main__':
+    asyncio.run(main())
+
 # TODO: дана асинхронная функция которая ждет случайное количество секунд (от 1 до 5)
 #  Создайте 3 корутины, и запустите их асинхронно с помощью asyncio.gather().
