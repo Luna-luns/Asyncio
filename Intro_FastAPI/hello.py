@@ -14,5 +14,12 @@ def hello_who(who: str):
     return f'Hello, {who}!'
 
 
+@app.get('/hello')
+def hello_query(who: str):
+    """ Пример использования query parameters 
+        URL example: /hello?who=Mark
+    """
+    return f'Hi, {who}!'
+
 if __name__ == '__main__':
     uvicorn.run('hello:app', reload=True)
