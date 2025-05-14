@@ -1,5 +1,6 @@
 import asyncio
-from fastapi import Body, FastAPI
+from fastapi import Body, FastAPI, HTTPException
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import uvicorn
 
@@ -28,7 +29,11 @@ def hello_query(who: str):
 def body_name(who = Body(embed=True)):
     user_names = []
     user_names.append(who)
-    return f'Hello, {who}!'
+    if who != "Petr":
+        raise HTTPException(status_code=404, detail=f"Bad user's name: {who}")
+    content = {"message": f'Hello, {who}!'}
+    headers = {"Status-Code": "404", "X-My-name": "value"}
+    return JSONResponse(content=content, headers=headers)
 
 
 class User(BaseModel):
