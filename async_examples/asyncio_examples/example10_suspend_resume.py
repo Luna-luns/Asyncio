@@ -1,5 +1,6 @@
 """
 https://stackoverflow.com/questions/66687549/is-it-possible-to-suspend-and-restart-tasks-in-async-python
+https://stackoverflow.com/questions/56078482/python-coroutines-release-context-manager-when-pausing/56079900
 
 """
 

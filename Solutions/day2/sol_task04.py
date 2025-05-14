@@ -8,17 +8,23 @@ import asyncio
 import random
 
 
-async def get_random_num() -> int:
-    num = random.randint(0, 10)
-    delay = random.randint(1, 4)
+async def get_randint():
+    delay = random.randint(1, 5)
+    number = random.randint(0, 10)
     await asyncio.sleep(delay)
-    print(num)
-    return num
+    return number
 
 
-async def get_sum() -> None:
-    results: tuple = await asyncio.gather(get_random_num(), get_random_num(), get_random_num())
-    print(f'Total sum = {sum(results)}')
+async def main(n: int):
+    tasks = [asyncio.create_task(get_randint()) for _ in range(n)]
+    num_list = []
+
+    for compiled in asyncio.as_completed(tasks):
+        result = await compiled
+        print(result)
+        num_list.append(result)
+    print(sum(num_list))
 
 
-asyncio.run(get_sum())
+if __name__ == "__main__":
+    asyncio.run(main(5))
