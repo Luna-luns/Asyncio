@@ -9,14 +9,14 @@ books_db = {}
 error_dict = {"detail": "Book not found"}
 success_dict = {"message": "Book deleted successfully"}
 
-app = FastAPI()
+app = FastAPI(openapi_tags=[{'name':'Books'}])
 
 
 class Book(BaseModel):
     title: str
     author: str | None = None
 
-@app.post('/books')
+@app.post('/books', tags=["Books"])
 async def create_book(book: Book):
     new_id = len(books_db) + 1
     books_db[new_id] = book
@@ -53,4 +53,5 @@ async def delete_books(book_id: int):
 
 
 if __name__ == "__main__":
+    print(f'{app.routes = }') # All routes of app
     uvicorn.run('main:app', reload=True)
